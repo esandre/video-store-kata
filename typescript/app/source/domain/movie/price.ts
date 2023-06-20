@@ -3,16 +3,11 @@ import {MoviePrices} from "../moviePrices";
 import {Rental} from "../rental";
 
 const calculateAdditionalCost = (rental: Rental): MoviePrices => {
-    let additionalCost = 0.0;
-    if (rental.rentalDays > rental.mc.minRentDays) {
-        const additionalDays = rental.rentalDays - rental.mc.minRentDays
-        additionalCost = rental.mc.additionaCostPerDay * additionalDays;
-    }
-    return new MoviePrices(additionalCost, rental.mc.price);
+    return rental.CalculateAdditionalCost();
 }
 
 const calculatePrice = (moviePrices: MoviePrices): number =>
-     moviePrices.movieBasePrice + moviePrices.additionalCost
+     moviePrices.CalculatePrice();
 
 const calculateTotalPriceWith =
     (calculateMoviePrice:(r:Rental) => number) =>

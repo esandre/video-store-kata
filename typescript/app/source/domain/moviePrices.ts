@@ -6,4 +6,8 @@ export class MoviePrices {
         this.additionalCost = additionalCost;
         this.movieBasePrice = movieBasePrice;
     }
+
+    CalculatePrice(): number {
+        return this.movieBasePrice + this.additionalCost;
+    }
 }
