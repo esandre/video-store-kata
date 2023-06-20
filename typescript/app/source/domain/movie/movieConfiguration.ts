@@ -16,10 +16,12 @@ export class MovieConfiguration {
         this.additionaCostPerDay = additionaCostPerDay;
         this.additionalRenterPoint = additionalRenterPoint;
     }
+
+    public static NewReleaseWithTitle(title: string) {
+        return new MovieConfiguration(title,3.0,1,3.0,1);
+    }
+
+    public static ChildrenWithTitle(title: string) {
+        return  new MovieConfiguration(title,1.5,3,1.5,0);
+    }
 }
-export const newReleaseConfiguration: (title: string) => MovieConfiguration = (title:string)=>{
-    return  new MovieConfiguration(title,3.0,1,3.0,1)
-};
-export const childrenConfiguration: (title: string) => MovieConfiguration = (title:string)=>{
-    return  new MovieConfiguration(title,1.5,3,1.5,0)
-};

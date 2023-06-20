@@ -1,18 +1,15 @@
-import {
-    childrenConfiguration,
-    newReleaseConfiguration
-} from "../../../source/domain/movie/movieConfiguration"
 import {printTextReceipt} from "../../../source/infrastructure/textReceipt";
 import {printHtmlReceipt} from "../../../source/infrastructure/htmlReceipt";
 import {Rental} from "../../../source/domain/rental";
+import {MovieConfiguration} from "../../../source/domain/movie/movieConfiguration";
 
 describe('Video Store', function () {
 
     it('print plain text receipt', () => {
 
-        const aRental = new Rental(1, newReleaseConfiguration("A_NEW_RELEASE_TITLE"));
-        const anotherRental = new Rental(1, newReleaseConfiguration("ANOTHER_NEW_RELEASE_TITLE"));
-        const aThirdRental = new Rental(1, childrenConfiguration("A_CHILDREN_RELEASE_TITLE"));
+        const aRental = new Rental(1, MovieConfiguration.NewReleaseWithTitle("A_NEW_RELEASE_TITLE"));
+        const anotherRental = new Rental(1, MovieConfiguration.NewReleaseWithTitle("ANOTHER_NEW_RELEASE_TITLE"));
+        const aThirdRental = new Rental(1, MovieConfiguration.ChildrenWithTitle("A_CHILDREN_RELEASE_TITLE"));
 
         const receipt = printTextReceipt("Marco",Array.of(aRental, anotherRental,aThirdRental));
 
@@ -28,9 +25,9 @@ describe('Video Store', function () {
 
     it('print html receipt', () => {
 
-        const aRental = new Rental(1, newReleaseConfiguration("A_NEW_RELEASE_TITLE"));
-        const anotherRental = new Rental(1, newReleaseConfiguration("ANOTHER_NEW_RELEASE_TITLE"));
-        const aThirdRental = new Rental(1, childrenConfiguration("A_CHILDREN_RELEASE_TITLE"));
+        const aRental = new Rental(1, MovieConfiguration.NewReleaseWithTitle("A_NEW_RELEASE_TITLE"));
+        const anotherRental = new Rental(1, MovieConfiguration.NewReleaseWithTitle("ANOTHER_NEW_RELEASE_TITLE"));
+        const aThirdRental = new Rental(1, MovieConfiguration.ChildrenWithTitle("A_CHILDREN_RELEASE_TITLE"));
 
         const receipt = printHtmlReceipt("Marco",Array.of(aRental, anotherRental,aThirdRental));
 
