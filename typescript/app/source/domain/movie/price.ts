@@ -1,5 +1,6 @@
-import {MoviePrices, Rental} from "./videoStore";
 import {compose} from "../compose";
+import {MoviePrices} from "../moviePrices";
+import {Rental} from "../rental";
 
 const calculateAdditionalCost = (rental: Rental): MoviePrices => {
     let additionalCost = 0.0;

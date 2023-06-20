@@ -1,10 +1,10 @@
 import {
     childrenConfiguration,
-    newReleaseConfiguration,
-    Rental
-} from "../../../source/domain/movie/videoStore"
+    newReleaseConfiguration
+} from "../../../source/domain/movie/movieConfiguration"
 import {printTextReceipt} from "../../../source/infrastructure/textReceipt";
 import {printHtmlReceipt} from "../../../source/infrastructure/htmlReceipt";
+import {Rental} from "../../../source/domain/rental";
 
 describe('Video Store', function () {
 

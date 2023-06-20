@@ -1,5 +1,5 @@
-import {Rental} from "./videoStore";
 import {calculateSingleMoviePrice} from "./price";
+import {Rental} from "../rental";
 
 export class PrintableMovie {
     title: string;

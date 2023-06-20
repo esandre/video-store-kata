@@ -1,9 +1,9 @@
 import {
     childrenConfiguration,
-    newReleaseConfiguration,
-    Rental
-} from "../../../source/domain/movie/videoStore"
+    newReleaseConfiguration
+} from "../../../source/domain/movie/movieConfiguration"
 import {calculateSingleMoviePrice} from "../../../source/domain/movie/price";
+import {Rental} from "../../../source/domain/rental";
 
 describe('Movie', function () {
 

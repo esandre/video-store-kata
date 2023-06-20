@@ -1,21 +1,3 @@
-export class MoviePrices {
-    additionalCost: number;
-    movieBasePrice: number;
-
-    constructor(additionalCost: number, movieBasePrice: number) {
-        this.additionalCost = additionalCost;
-        this.movieBasePrice = movieBasePrice;
-    }
-}
-export class Rental {
-    rentalDays: number;
-    mc: MovieConfiguration;
-
-    constructor(rentalDays: number, m: MovieConfiguration) {
-        this.rentalDays = rentalDays;
-        this.mc = m;
-    }
-}
 export class MovieConfiguration {
     title: string;
     price: number;
