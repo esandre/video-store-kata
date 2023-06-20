@@ -1,6 +1,6 @@
 import {newReleaseConfiguration, Rental} from "./domain/movie/videoStore";
-import {printHtmlReceipt} from "./domain/movie/htmlReceipt";
-import {printTextReceipt} from "./domain/movie/textReceipt";
+import {printTextReceipt} from "./infrastructure/textReceipt";
+import {printHtmlReceipt} from "./infrastructure/htmlReceipt";
 
 let aRental = new Rental(1, newReleaseConfiguration("Harry Potter"));
 let anotherRental = new Rental(1, newReleaseConfiguration("Mission Impossible"));
