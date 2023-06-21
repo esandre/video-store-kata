@@ -2,19 +2,22 @@ import {Rental} from "../domain/rental";
 import {Cart} from "../domain/movie/cart";
 
 export abstract class GenericReceipt {
+    protected readonly Cart: Cart;
 
-    abstract MakeHeader(user: string) : string;
-    abstract MakeBody(cart: Cart) : string;
-    abstract MakeFooter(cart: Cart) : string;
-    abstract MakeRentalPoint(cart: Cart) : string;
+    protected constructor(cart: Cart) {
+        this.Cart = cart;
+    }
 
-    Print(user:string, rentals:Rental[])
+    protected abstract MakeHeader(user: string) : string;
+    protected abstract MakeBody() : string;
+    protected abstract MakeFooter() : string;
+    protected abstract MakeRentalPoint() : string;
+
+    PrintForUser(user:string)
     {
-        const cart = new Cart(rentals);
-
         return this.MakeHeader(user) +
-            this.MakeBody(cart) + "\n" +
-            this.MakeFooter(cart) + "\n" +
-            this.MakeRentalPoint(cart);
+            this.MakeBody() + "\n" +
+            this.MakeFooter() + "\n" +
+            this.MakeRentalPoint();
     }
 }

@@ -1,26 +1,30 @@
 import {PrintableMovie} from "../domain/movie/receipt";
 import {Rental} from "../domain/rental";
-import {Cart} from "../domain/movie/cart";
 import {GenericReceipt} from "./genericReceipt";
+import {Cart} from "../domain/movie/cart";
 
 export class HtmlMovieReceipt extends GenericReceipt {
+    public constructor(cart: Cart) {
+        super(cart);
+    }
+
     private static PrintRental(r: Rental) : string {
         const printableMovie = PrintableMovie.FromRental(r);
         return `<li>${printableMovie.title} ${printableMovie.priceRepresentation}</li>`;
     }
 
-    MakeBody(cart: Cart): string {
+    MakeBody(): string {
         const prefix = '<ul>\n';
 
-        const lines = cart
+        const lines = this.Cart
             .Map(HtmlMovieReceipt.PrintRental)
             .join("\n");
 
         return prefix + lines + `\n</ul>`;
     }
 
-    MakeFooter(cart:Cart): string {
-        return `<br>You owed ${cart.CalculateTotalPrice().toPrecision(2)}`
+    MakeFooter(): string {
+        return `<br>You owed ${this.Cart.CalculateTotalPrice().toPrecision(2)}`
     }
 
     MakeHeader(user: string): string {
@@ -33,7 +37,7 @@ export class HtmlMovieReceipt extends GenericReceipt {
             `<h1>Rental Record for ${user}</h1>\n`
     }
 
-    MakeRentalPoint(cart: Cart): string {
-        return `<br>You earned ${cart.CalculateRentalPoints()} frequent renter points\n</body>\n</html>`;
+    MakeRentalPoint(): string {
+        return `<br>You earned ${this.Cart.CalculateRentalPoints()} frequent renter points\n</body>\n</html>`;
     }
 }

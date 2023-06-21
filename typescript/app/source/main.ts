@@ -8,14 +8,14 @@ let anotherRental = new Rental(1, MovieConfiguration.NewReleaseWithTitle("Missio
 let thirdRental = new Rental(4, MovieConfiguration.NewReleaseWithTitle("Peppa pig"));
 console.log("------ PLAIN TEXT --------")
 console.log(
-    new TextReceipt().Print("Text Receipt User",
+    new TextReceipt().PrintForUser("Text Receipt User",
         Array.of(
             aRental,
             anotherRental,
             thirdRental)));
 console.log("------ HTML --------")
 console.log(
-    new HtmlMovieReceipt().Print("Html Receipt User",
+    new HtmlMovieReceipt().PrintForUser("Html Receipt User",
         Array.of(
             aRental,
             anotherRental,
