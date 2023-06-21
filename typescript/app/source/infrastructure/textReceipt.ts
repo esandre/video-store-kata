@@ -1,5 +1,4 @@
 import {PrintableMovie} from "../domain/movie/receipt";
-import {calculateRentalPoints} from "../domain/movie/rentPoint";
 import {Rental} from "../domain/rental";
 import {Cart} from "../domain/movie/cart";
 import {GenericReceipt} from "./genericReceipt";
@@ -21,7 +20,7 @@ const textFooterRentalPointReceiptWith = (
 
 //WIRING HERE
 const textFooterRentalPointReceipt =
-    textFooterRentalPointReceiptWith(calculateRentalPoints);
+    textFooterRentalPointReceiptWith(Cart.CalculateRentalPoints);
 
 const textFooterReceipt: (rentals: Rental[]) => string =
     textFooterReceiptWith(rentals => Cart.CalculateTotalPriceWith(rentals));

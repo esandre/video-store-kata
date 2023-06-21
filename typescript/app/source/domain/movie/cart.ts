@@ -4,4 +4,8 @@ export class Cart {
     public static CalculateTotalPriceWith(rentals: Rental[]) : number {
         return rentals.map(r => r.CalculateSingleMoviePrice()).reduce((x, y) => x + y);
     }
+
+    public static CalculateRentalPoints(rentals: Rental[]) {
+        return rentals.map(r=>r.RentPoints()).reduce((x,y)=>x+y);
+    }
 }

@@ -1,5 +1,4 @@
 import {PrintableMovie} from "../domain/movie/receipt";
-import {calculateRentalPoints} from "../domain/movie/rentPoint";
 import {Rental} from "../domain/rental";
 import {Cart} from "../domain/movie/cart";
 import {GenericReceipt} from "./genericReceipt";
@@ -45,6 +44,6 @@ export class HtmlMovieReceipt extends GenericReceipt {
     }
 
     MakeRentalPoint(rentals: Rental[]): string {
-        return HtmlMovieReceipt.HtmlFooterRentalPointReceiptWith(calculateRentalPoints, rentals);
+        return HtmlMovieReceipt.HtmlFooterRentalPointReceiptWith(Cart.CalculateRentalPoints, rentals);
     }
 }
