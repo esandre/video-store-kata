@@ -4,31 +4,16 @@ import {Cart} from "../domain/movie/cart";
 import {GenericReceipt} from "./genericReceipt";
 
 const textMovieReceipt = (m: PrintableMovie): string =>
-     `- ${m.title} ${m.priceRepresentation}`
+    `- ${m.title} ${m.priceRepresentation}`
 
 const textMoviesReceiptWith = (
     movieReceiptFunc: (x: Rental) => string) =>
      (rentals: Rental[]) => rentals.map(r => movieReceiptFunc(r)).join("\n")
 
-const textFooterReceiptWith = (
-    totalPrice: (rentals: Rental[]) => number) =>
-     (rentals: Rental[]) => `Total ${totalPrice(rentals).toPrecision(2)}`
-
-const textFooterRentalPointReceiptWith = (
-    calculateRentalPoint: (cart: Cart) => number) =>
-     (cart: Cart) => `Total Rental points ${calculateRentalPoint(cart)}`
-
-//WIRING HERE
-const textFooterRentalPointReceipt =
-    textFooterRentalPointReceiptWith(c => c.CalculateRentalPoints());
-
-const textFooterReceipt: (rentals: Rental[]) => string =
-    textFooterReceiptWith(rentals => new Cart(rentals).CalculateTotalPrice());
-
 const textMoviesReceipt: (rentals: Rental[]) => string =
-    textMoviesReceiptWith(r => textMovieReceipt(PrintableMovie.FromRental(r => r.CalculateSingleMoviePrice(), r)));
-
-const textHeader = (user: string) => `Hello ${user} this is your receipt\n`;
+    textMoviesReceiptWith(
+        r => textMovieReceipt(PrintableMovie.FromRental(
+            r => r.CalculateSingleMoviePrice(), r)));
 
 export class TextReceipt extends GenericReceipt {
     MakeBody(rentals: Rental[]): string {
@@ -36,14 +21,14 @@ export class TextReceipt extends GenericReceipt {
     }
 
     MakeFooter(rentals: Rental[]): string {
-        return textFooterReceipt(rentals);
+        return `Total ${new Cart(rentals).CalculateTotalPrice().toPrecision(2)}`
     }
 
-    MakeHeader(user: string): string {
-        return textHeader(user);
+    public MakeHeader(user: string): string {
+        return `Hello ${user} this is your receipt\n`;
     }
 
     MakeRentalPoint(cart: Cart): string {
-        return textFooterRentalPointReceipt(cart);
+        return `Total Rental points ${cart.CalculateRentalPoints()}`;
     }
 }
