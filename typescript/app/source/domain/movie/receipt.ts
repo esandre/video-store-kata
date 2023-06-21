@@ -1,8 +1,8 @@
 import {Rental} from "../rental";
 
 export class PrintableMovie {
-    title: string;
-    priceRepresentation: string;
+    readonly title: string;
+    readonly priceRepresentation: string;
 
     constructor(title: string, priceRepresentation: string) {
         this.title = title;

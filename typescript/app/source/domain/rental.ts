@@ -11,20 +11,22 @@ export class Rental {
         this._movieConfiguration = movieConfiguration;
     }
 
-    CalculateAdditionalCostWithShittyName(): MoviePrices {
+    public CalculateCostConsideringRentalDays(): MoviePrices {
         let additionalCost = 0.0;
+
         if (this._rentalDays > this._movieConfiguration.minRentDays) {
             const additionalDays = this._rentalDays - this._movieConfiguration.minRentDays
             additionalCost = this._movieConfiguration.additionaCostPerDay * additionalDays;
         }
+
         return new MoviePrices(additionalCost, this._movieConfiguration.price);
     }
 
-    CalculateSingleMoviePrice() : number {
-        return this.CalculateAdditionalCostWithShittyName().CalculateTotalPrice();
+    public CalculateSingleMoviePrice() : number {
+        return this.CalculateCostConsideringRentalDays().CalculateTotalPrice();
     }
 
-    RentPoints():number {
+    public RentPoints():number {
         let baserenterPoint = 1;
 
         if(this._rentalDays>1){
