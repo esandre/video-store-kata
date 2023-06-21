@@ -1,20 +1,21 @@
-import {newReleaseConfiguration, Rental} from "./domain/movie/movieConfiguration";
-import {printTextReceipt} from "./infrastructure/textReceipt";
-import {printHtmlReceipt} from "./infrastructure/htmlReceipt";
+import {MovieConfiguration} from "./domain/movie/movieConfiguration";
+import {Rental} from "./domain/rental";
+import {TextReceipt} from "./infrastructure/textReceipt";
+import {HtmlMovieReceipt} from "./infrastructure/htmlReceipt";
 
-let aRental = new Rental(1, newReleaseConfiguration("Harry Potter"));
-let anotherRental = new Rental(1, newReleaseConfiguration("Mission Impossible"));
-let thirdRental = new Rental(4, newReleaseConfiguration("Peppa pig"));
+let aRental = new Rental(1, MovieConfiguration.NewReleaseWithTitle("Harry Potter"));
+let anotherRental = new Rental(1, MovieConfiguration.NewReleaseWithTitle("Mission Impossible"));
+let thirdRental = new Rental(4, MovieConfiguration.NewReleaseWithTitle("Peppa pig"));
 console.log("------ PLAIN TEXT --------")
 console.log(
-    printTextReceipt("Text Receipt User",
+    new TextReceipt().Print("Text Receipt User",
         Array.of(
             aRental,
             anotherRental,
             thirdRental)));
 console.log("------ HTML --------")
 console.log(
-    printHtmlReceipt("Html Receipt User",
+    new HtmlMovieReceipt().Print("Html Receipt User",
         Array.of(
             aRental,
             anotherRental,

@@ -1,8 +1,8 @@
-import {GenericReceipt, PrintableMovie} from "../domain/movie/receipt";
+import {PrintableMovie} from "../domain/movie/receipt";
 import {calculateRentalPoints} from "../domain/movie/rentPoint";
-import {compose} from "../domain/compose";
 import {Rental} from "../domain/rental";
 import {Cart} from "../domain/movie/cart";
+import {GenericReceipt} from "./genericReceipt";
 
 const textMovieReceipt = (m: PrintableMovie): string =>
      `- ${m.title} ${m.priceRepresentation}`

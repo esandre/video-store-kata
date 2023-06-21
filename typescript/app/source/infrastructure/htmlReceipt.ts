@@ -1,7 +1,8 @@
-import {GenericReceipt, PrintableMovie} from "../domain/movie/receipt";
+import {PrintableMovie} from "../domain/movie/receipt";
 import {calculateRentalPoints} from "../domain/movie/rentPoint";
 import {Rental} from "../domain/rental";
 import {Cart} from "../domain/movie/cart";
+import {GenericReceipt} from "./genericReceipt";
 
 export class HtmlMovieReceipt extends GenericReceipt {
     static PrintMovie(m: PrintableMovie) : string {
