@@ -22,4 +22,14 @@ export class Rental {
     CalculateSingleMoviePrice() : number {
         return this.CalculateAdditionalCost().CalculatePrice();
     }
+
+    RentPoints():number {
+        let baserenterPoint = 1;
+
+        if(this.rentalDays>1){
+            return baserenterPoint+ this.mc.additionalRenterPoint
+        }
+
+        return baserenterPoint
+    };
 }
