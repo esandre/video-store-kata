@@ -12,8 +12,8 @@ export class HtmlMovieReceipt extends GenericReceipt {
         return (rentals: Rental[]) => `<ul>\n${rentals.map(r => htmlMovieReceipt(r)).join("\n")}\n</ul>`;
     }
     
-    static HtmlFooterReceiptWith(calculateMoviesTotalPrice: (rentals: Rental[]) => number){
-        return (rentals: Rental[]) => `<br>You owed ${calculateMoviesTotalPrice(rentals).toPrecision(2)}`;
+    static HtmlFooterReceiptWith(calculateMoviesTotalPrice: (cart: Cart) => number){
+        return (cart: Cart) => `<br>You owed ${calculateMoviesTotalPrice(cart).toPrecision(2)}`;
     }
 
     static HtmlFooterRentalPointReceiptWith(rentalPoints: number) {
@@ -23,13 +23,12 @@ export class HtmlMovieReceipt extends GenericReceipt {
     MakeBody(rentals: Rental[]): string {
         return HtmlMovieReceipt.HtmlMoviesReceiptWith(
             rental => HtmlMovieReceipt
-                .PrintMovie(
-                    PrintableMovie.FromRental(r => r.CalculateSingleMoviePrice(), rental))
+                .PrintMovie(PrintableMovie.FromRental(rental))
         )(rentals);
     }
 
-    MakeFooter(rentals: Rental[]): string {
-        return HtmlMovieReceipt.HtmlFooterReceiptWith(r => new Cart(r).CalculateTotalPrice())(rentals);
+    MakeFooter(cart:Cart): string {
+        return HtmlMovieReceipt.HtmlFooterReceiptWith(cart => cart.CalculateTotalPrice())(cart);
     }
 
     MakeHeader(user: string): string {

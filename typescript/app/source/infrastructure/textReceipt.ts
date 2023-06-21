@@ -3,25 +3,19 @@ import {Rental} from "../domain/rental";
 import {Cart} from "../domain/movie/cart";
 import {GenericReceipt} from "./genericReceipt";
 
-const textMovieReceipt = (m: PrintableMovie): string =>
-    `- ${m.title} ${m.priceRepresentation}`
 
-const textMoviesReceiptWith = (
-    movieReceiptFunc: (x: Rental) => string) =>
-     (rentals: Rental[]) => rentals.map(r => movieReceiptFunc(r)).join("\n")
-
-const textMoviesReceipt: (rentals: Rental[]) => string =
-    textMoviesReceiptWith(
-        r => textMovieReceipt(PrintableMovie.FromRental(
-            r => r.CalculateSingleMoviePrice(), r)));
 
 export class TextReceipt extends GenericReceipt {
-    MakeBody(rentals: Rental[]): string {
-        return textMoviesReceipt(rentals);
+    private RepresentPrintableMovie(m: PrintableMovie): string {
+        return `- ${m.title} ${m.priceRepresentation}`;
     }
 
-    MakeFooter(rentals: Rental[]): string {
-        return `Total ${new Cart(rentals).CalculateTotalPrice().toPrecision(2)}`
+    MakeBody(rentals: Rental[]): string {
+        return rentals.map(r => this.RepresentPrintableMovie(PrintableMovie.FromRental(r))).join("\n")
+    }
+
+    MakeFooter(cart: Cart): string {
+        return `Total ${cart.CalculateTotalPrice().toPrecision(2)}`
     }
 
     public MakeHeader(user: string): string {

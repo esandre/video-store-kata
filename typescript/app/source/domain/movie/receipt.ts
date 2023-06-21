@@ -9,7 +9,7 @@ export class PrintableMovie {
         this.priceRepresentation = priceRepresentation;
     }
 
-    static FromRental(calculateMoviePrice: (r: Rental) => number, rental: Rental){
-        return new PrintableMovie(rental.mc.title, calculateMoviePrice(rental).toPrecision(2));
+    static FromRental(rental: Rental){
+        return new PrintableMovie(rental.mc.title, rental.CalculateSingleMoviePrice().toPrecision(2));
     }
 }

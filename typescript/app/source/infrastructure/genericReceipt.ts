@@ -5,14 +5,16 @@ export abstract class GenericReceipt {
 
     abstract MakeHeader(user: string) : string;
     abstract MakeBody(rentals:Rental[]) : string;
-    abstract MakeFooter(rentals:Rental[]) : string;
+    abstract MakeFooter(cart: Cart) : string;
     abstract MakeRentalPoint(cart: Cart) : string;
 
     Print(user:string, rentals:Rental[])
     {
+        const cart = new Cart(rentals);
+
         return this.MakeHeader(user) +
             this.MakeBody(rentals) + "\n" +
-            this.MakeFooter(rentals) + "\n" +
-            this.MakeRentalPoint(new Cart(rentals));
+            this.MakeFooter(cart) + "\n" +
+            this.MakeRentalPoint(cart);
     }
 }
