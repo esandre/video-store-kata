@@ -39,4 +39,12 @@ export class Rental {
     public MakePrintable() : PrintableMovie{
         return new PrintableMovie(this._movieConfiguration.title, this.CalculateSingleMoviePrice().toPrecision(2));
     }
+
+    public IsChildren() : boolean {
+        return this._movieConfiguration.IsChildren();
+    }
+
+    public IsRegular() : boolean {
+        return this._movieConfiguration.IsRegular();
+    }
 }

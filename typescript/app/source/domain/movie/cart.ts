@@ -8,7 +8,11 @@ export class Cart {
     }
 
     public CalculateTotalPrice() : number {
-        return this._rentals.map(r => r.CalculateSingleMoviePrice()).reduce((x, y) => x + y);
+        const totalPrice = this._rentals.map(r => r.CalculateSingleMoviePrice()).reduce((x, y) => x + y);
+        if(this.IsAChildrenAndRegularPair())
+            return totalPrice - (totalPrice * 0.3);
+
+        return totalPrice;
     }
 
     public CalculateRentalPoints() : number {
@@ -17,5 +21,11 @@ export class Cart {
 
     public Map<T>(mapMethod: (value: Rental) => T) : T[]  {
         return this._rentals.map(mapMethod);
+    }
+
+    private IsAChildrenAndRegularPair() {
+        return this._rentals.length == 2
+            && this._rentals.some(r => r.IsChildren())
+            && this._rentals.some(r => r.IsRegular());
     }
 }
