@@ -20,10 +20,10 @@ const textFooterRentalPointReceiptWith = (
 
 //WIRING HERE
 const textFooterRentalPointReceipt =
-    textFooterRentalPointReceiptWith(Cart.CalculateRentalPoints);
+    textFooterRentalPointReceiptWith(r => new Cart(r).CalculateRentalPoints());
 
 const textFooterReceipt: (rentals: Rental[]) => string =
-    textFooterReceiptWith(rentals => Cart.CalculateTotalPriceWith(rentals));
+    textFooterReceiptWith(rentals => new Cart(rentals).CalculateTotalPrice());
 
 const textMoviesReceipt: (rentals: Rental[]) => string =
     textMoviesReceiptWith(r => textMovieReceipt(PrintableMovie.FromRental(r => r.CalculateSingleMoviePrice(), r)));

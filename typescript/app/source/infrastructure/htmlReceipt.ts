@@ -29,8 +29,7 @@ export class HtmlMovieReceipt extends GenericReceipt {
     }
 
     MakeFooter(rentals: Rental[]): string {
-        return HtmlMovieReceipt.HtmlFooterReceiptWith(
-            rentals => Cart.CalculateTotalPriceWith(rentals))(rentals);
+        return HtmlMovieReceipt.HtmlFooterReceiptWith(r => new Cart(r).CalculateTotalPrice())(rentals);
     }
 
     MakeHeader(user: string): string {
@@ -44,6 +43,6 @@ export class HtmlMovieReceipt extends GenericReceipt {
     }
 
     MakeRentalPoint(rentals: Rental[]): string {
-        return HtmlMovieReceipt.HtmlFooterRentalPointReceiptWith(Cart.CalculateRentalPoints(rentals));
+        return HtmlMovieReceipt.HtmlFooterRentalPointReceiptWith(new Cart(rentals).CalculateRentalPoints());
     }
 }
