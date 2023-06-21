@@ -16,8 +16,8 @@ export class HtmlMovieReceipt extends GenericReceipt {
         return (rentals: Rental[]) => `<br>You owed ${calculateMoviesTotalPrice(rentals).toPrecision(2)}`;
     }
 
-    static HtmlFooterRentalPointReceiptWith(calculateRentalPoint: (rentals: Rental[]) => number) {
-        return (rentals: Rental[]) => `<br>You earned ${calculateRentalPoint(rentals)} frequent renter points\n</body>\n</html>`;
+    static HtmlFooterRentalPointReceiptWith(calculateRentalPoint: (rentals: Rental[]) => number, rentals: Rental[]) {
+        return `<br>You earned ${calculateRentalPoint(rentals)} frequent renter points\n</body>\n</html>`;
     }
 
     MakeBody(rentals: Rental[]): string {
@@ -44,6 +44,6 @@ export class HtmlMovieReceipt extends GenericReceipt {
     }
 
     MakeRentalPoint(rentals: Rental[]): string {
-        return HtmlMovieReceipt.HtmlFooterRentalPointReceiptWith(calculateRentalPoints)(rentals);
+        return HtmlMovieReceipt.HtmlFooterRentalPointReceiptWith(calculateRentalPoints, rentals);
     }
 }
