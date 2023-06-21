@@ -14,4 +14,8 @@ export class Cart {
     public CalculateRentalPoints() : number {
         return this._rentals.map(r=>r.RentPoints()).reduce((x,y)=>x+y);
     }
+
+    public Map<T>(mapMethod: (value: Rental) => T) : T[]  {
+        return this._rentals.map(mapMethod);
+    }
 }

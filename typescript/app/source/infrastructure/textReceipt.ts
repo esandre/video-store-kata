@@ -6,12 +6,15 @@ import {GenericReceipt} from "./genericReceipt";
 
 
 export class TextReceipt extends GenericReceipt {
-    private RepresentPrintableMovie(m: PrintableMovie): string {
-        return `- ${m.title} ${m.priceRepresentation}`;
+    private Represent(r: Rental): string {
+        const printableMovie = PrintableMovie.FromRental(r);
+        return `- ${printableMovie.title} ${printableMovie.priceRepresentation}`;
     }
 
-    MakeBody(rentals: Rental[]): string {
-        return rentals.map(r => this.RepresentPrintableMovie(PrintableMovie.FromRental(r))).join("\n")
+    MakeBody(cart: Cart): string {
+        return cart
+            .Map(this.Represent)
+            .join("\n")
     }
 
     MakeFooter(cart: Cart): string {
