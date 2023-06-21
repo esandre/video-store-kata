@@ -1,8 +1,8 @@
-import {genericReceipt, printableMovie, PrintableMovie} from "../domain/movie/receipt";
+import {GenericReceipt, PrintableMovie} from "../domain/movie/receipt";
 import {calculateRentalPoints} from "../domain/movie/rentPoint";
 import {compose} from "../domain/compose";
 import {Rental} from "../domain/rental";
-import {Cart} from "../domain/movie/price";
+import {Cart} from "../domain/movie/cart";
 
 const textMovieReceipt = (m: PrintableMovie): string =>
      `- ${m.title} ${m.priceRepresentation}`
@@ -27,16 +27,24 @@ const textFooterReceipt: (rentals: Rental[]) => string =
     textFooterReceiptWith(rentals => Cart.CalculateTotalPriceWith(rentals));
 
 const textMoviesReceipt: (rentals: Rental[]) => string =
-    textMoviesReceiptWith(compose(
-        printableMovie,
-        textMovieReceipt))
+    textMoviesReceiptWith(r => textMovieReceipt(PrintableMovie.FromRental(r => r.CalculateSingleMoviePrice(), r)));
 
 const textHeader = (user: string) => `Hello ${user} this is your receipt\n`;
 
-//WIRING THE PRINT FUNCTION WITH PLAIN TEXT BEHAVIOUR
-export const printTextReceipt: (user: string, rentals: Rental[]) => string =
-    genericReceipt(
-        textHeader,
-        textMoviesReceipt,
-        textFooterReceipt,
-        textFooterRentalPointReceipt)
+export class TextReceipt extends GenericReceipt {
+    MakeBody(rentals: Rental[]): string {
+        return textMoviesReceipt(rentals);
+    }
+
+    MakeFooter(rentals: Rental[]): string {
+        return textFooterReceipt(rentals);
+    }
+
+    MakeHeader(user: string): string {
+        return textHeader(user);
+    }
+
+    MakeRentalPoint(rentals: Rental[]): string {
+        return textFooterRentalPointReceipt(rentals);
+    }
+}

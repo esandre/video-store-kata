@@ -8,26 +8,24 @@ export class PrintableMovie {
         this.title = title;
         this.priceRepresentation = priceRepresentation;
     }
+
+    static FromRental(calculateMoviePrice: (r: Rental) => number, rental: Rental){
+        return new PrintableMovie(rental.mc.title, calculateMoviePrice(rental).toPrecision(2));
+    }
 }
 
-const printableMovieWith =
-    (calculateMoviePrice: (r: Rental) => number) =>
-        (r: Rental) => new PrintableMovie(r.mc.title, calculateMoviePrice(r).toPrecision(2));
+export abstract class GenericReceipt {
 
-export const printableMovie: (r: Rental) => PrintableMovie =
-    printableMovieWith(r => r.CalculateSingleMoviePrice());
+    abstract MakeHeader(user: string) : string;
+    abstract MakeBody(rentals:Rental[]) : string;
+    abstract MakeFooter(rentals:Rental[]) : string;
+    abstract MakeRentalPoint(rentals:Rental[]) : string;
 
-
-export const genericReceipt =
-    (header: (user: string) => string,
-     body: (rentals: Rental[]) => string,
-     footer: (rentals: Rental[]) => string,
-     rentalPoint: (rentals: Rental[]) => string) =>
-    {
-
-       return (user:string, rentals:Rental[]) =>
-            header(user) +
-            body(rentals) + "\n" +
-            footer(rentals) + "\n" +
-            rentalPoint(rentals)
-    }
+    Print(user:string, rentals:Rental[])
+        {
+            return this.MakeHeader(user) +
+                this.MakeBody(rentals) + "\n" +
+                this.MakeFooter(rentals) + "\n" +
+                this.MakeRentalPoint(rentals);
+        }
+}

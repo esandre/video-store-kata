@@ -1,7 +1,7 @@
-import {printTextReceipt} from "../../../source/infrastructure/textReceipt";
-import {printHtmlReceipt} from "../../../source/infrastructure/htmlReceipt";
 import {Rental} from "../../../source/domain/rental";
 import {MovieConfiguration} from "../../../source/domain/movie/movieConfiguration";
+import {HtmlMovieReceipt} from "../../../source/infrastructure/htmlReceipt";
+import {TextReceipt} from "../../../source/infrastructure/textReceipt";
 
 describe('Video Store', function () {
 
@@ -11,7 +11,7 @@ describe('Video Store', function () {
         const anotherRental = new Rental(1, MovieConfiguration.NewReleaseWithTitle("ANOTHER_NEW_RELEASE_TITLE"));
         const aThirdRental = new Rental(1, MovieConfiguration.ChildrenWithTitle("A_CHILDREN_RELEASE_TITLE"));
 
-        const receipt = printTextReceipt("Marco",Array.of(aRental, anotherRental,aThirdRental));
+        const receipt = new TextReceipt().Print("Marco",Array.of(aRental, anotherRental,aThirdRental));
 
         expect(receipt).toEqual(
             "Hello Marco this is your receipt\n"+
@@ -29,7 +29,7 @@ describe('Video Store', function () {
         const anotherRental = new Rental(1, MovieConfiguration.NewReleaseWithTitle("ANOTHER_NEW_RELEASE_TITLE"));
         const aThirdRental = new Rental(1, MovieConfiguration.ChildrenWithTitle("A_CHILDREN_RELEASE_TITLE"));
 
-        const receipt = printHtmlReceipt("Marco",Array.of(aRental, anotherRental,aThirdRental));
+        const receipt = new HtmlMovieReceipt().Print("Marco", Array.of(aRental, anotherRental,aThirdRental));
 
         expect(receipt).toEqual(
             "<!DOCTYPE html>\n" +
