@@ -1,13 +1,13 @@
 export class MoviePrices {
-    additionalCost: number;
-    movieBasePrice: number;
+    private readonly _additionalCost: number;
+    private readonly _movieBasePrice: number;
 
     constructor(additionalCost: number, movieBasePrice: number) {
-        this.additionalCost = additionalCost;
-        this.movieBasePrice = movieBasePrice;
+        this._additionalCost = additionalCost;
+        this._movieBasePrice = movieBasePrice;
     }
 
-    CalculatePrice(): number {
-        return this.movieBasePrice + this.additionalCost;
+    CalculateTotalPrice(): number {
+        return this._movieBasePrice + this._additionalCost;
     }
 }

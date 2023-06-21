@@ -9,7 +9,7 @@ export class TextReceipt extends GenericReceipt {
     }
 
     private Represent(r: Rental): string {
-        const printableMovie = PrintableMovie.FromRental(r);
+        const printableMovie = r.MakePrintable();
         return `- ${printableMovie.title} ${printableMovie.priceRepresentation}`;
     }
 

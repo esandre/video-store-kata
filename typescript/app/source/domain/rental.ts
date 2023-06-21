@@ -1,35 +1,40 @@
 import {MovieConfiguration} from "./movie/movieConfiguration";
 import {MoviePrices} from "./moviePrices";
+import {PrintableMovie} from "./movie/receipt";
 
 export class Rental {
-    rentalDays: number;
-    mc: MovieConfiguration;
+    private readonly _rentalDays: number;
+    private readonly _movieConfiguration: MovieConfiguration;
 
-    constructor(rentalDays: number, m: MovieConfiguration) {
-        this.rentalDays = rentalDays;
-        this.mc = m;
+    constructor(rentalDays: number, movieConfiguration: MovieConfiguration) {
+        this._rentalDays = rentalDays;
+        this._movieConfiguration = movieConfiguration;
     }
 
-    CalculateAdditionalCost(): MoviePrices {
+    CalculateAdditionalCostWithShittyName(): MoviePrices {
         let additionalCost = 0.0;
-        if (this.rentalDays > this.mc.minRentDays) {
-            const additionalDays = this.rentalDays - this.mc.minRentDays
-            additionalCost = this.mc.additionaCostPerDay * additionalDays;
+        if (this._rentalDays > this._movieConfiguration.minRentDays) {
+            const additionalDays = this._rentalDays - this._movieConfiguration.minRentDays
+            additionalCost = this._movieConfiguration.additionaCostPerDay * additionalDays;
         }
-        return new MoviePrices(additionalCost, this.mc.price);
+        return new MoviePrices(additionalCost, this._movieConfiguration.price);
     }
 
     CalculateSingleMoviePrice() : number {
-        return this.CalculateAdditionalCost().CalculatePrice();
+        return this.CalculateAdditionalCostWithShittyName().CalculateTotalPrice();
     }
 
     RentPoints():number {
         let baserenterPoint = 1;
 
-        if(this.rentalDays>1){
-            return baserenterPoint+ this.mc.additionalRenterPoint
+        if(this._rentalDays>1){
+            return baserenterPoint+ this._movieConfiguration.additionalRenterPoint
         }
 
         return baserenterPoint
     };
+
+    public MakePrintable() : PrintableMovie{
+        return new PrintableMovie(this._movieConfiguration.title, this.CalculateSingleMoviePrice().toPrecision(2));
+    }
 }

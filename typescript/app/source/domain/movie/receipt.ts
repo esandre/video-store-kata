@@ -8,8 +8,4 @@ export class PrintableMovie {
         this.title = title;
         this.priceRepresentation = priceRepresentation;
     }
-
-    static FromRental(rental: Rental){
-        return new PrintableMovie(rental.mc.title, rental.CalculateSingleMoviePrice().toPrecision(2));
-    }
 }

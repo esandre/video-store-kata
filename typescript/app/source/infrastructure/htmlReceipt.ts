@@ -9,7 +9,7 @@ export class HtmlMovieReceipt extends GenericReceipt {
     }
 
     private static PrintRental(r: Rental) : string {
-        const printableMovie = PrintableMovie.FromRental(r);
+        const printableMovie = r.MakePrintable();
         return `<li>${printableMovie.title} ${printableMovie.priceRepresentation}</li>`;
     }
 
