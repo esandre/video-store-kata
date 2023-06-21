@@ -1,4 +1,3 @@
-import {calculateSingleMoviePrice} from "./price";
 import {Rental} from "../rental";
 
 export class PrintableMovie {
@@ -16,7 +15,7 @@ const printableMovieWith =
         (r: Rental) => new PrintableMovie(r.mc.title, calculateMoviePrice(r).toPrecision(2));
 
 export const printableMovie: (r: Rental) => PrintableMovie =
-    printableMovieWith(calculateSingleMoviePrice);
+    printableMovieWith(r => r.CalculateSingleMoviePrice());
 
 
 export const genericReceipt =

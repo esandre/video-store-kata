@@ -18,4 +18,8 @@ export class Rental {
         }
         return new MoviePrices(additionalCost, this.mc.price);
     }
+
+    CalculateSingleMoviePrice() : number {
+        return this.CalculateAdditionalCost().CalculatePrice();
+    }
 }

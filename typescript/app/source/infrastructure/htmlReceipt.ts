@@ -1,8 +1,8 @@
 import {genericReceipt, printableMovie, PrintableMovie} from "../domain/movie/receipt";
 import {calculateRentalPoints} from "../domain/movie/rentPoint";
-import {calculateTotalMoviesPrice} from "../domain/movie/price";
 import {compose} from "../domain/compose";
 import {Rental} from "../domain/rental";
+import {Cart} from "../domain/movie/price";
 
 const htmlMovieReceipt = (m: PrintableMovie): string =>
     `<li>${m.title} ${m.priceRepresentation}</li>`
@@ -24,7 +24,7 @@ const htmlFooterRentalPointReceipt: (rentals: Rental[]) => string =
     htmlFooterRentalPointReceiptWith(calculateRentalPoints);
 
 const htmlFooterReceipt: (rentals: Rental[]) => string =
-    htmlFooterReceiptWith(calculateTotalMoviesPrice);
+    htmlFooterReceiptWith(rentals => Cart.CalculateTotalPriceWith(rentals));
 
 const htmlMoviesReceipt: (rentals: Rental[]) => string =
     htmlMoviesReceiptWith(compose(
