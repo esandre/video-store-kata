@@ -15,12 +15,12 @@ const textFooterReceiptWith = (
      (rentals: Rental[]) => `Total ${totalPrice(rentals).toPrecision(2)}`
 
 const textFooterRentalPointReceiptWith = (
-    calculateRentalPoint: (rentals: Rental[]) => number) =>
-     (rentals: Rental[]) => `Total Rental points ${calculateRentalPoint(rentals)}`
+    calculateRentalPoint: (cart: Cart) => number) =>
+     (cart: Cart) => `Total Rental points ${calculateRentalPoint(cart)}`
 
 //WIRING HERE
 const textFooterRentalPointReceipt =
-    textFooterRentalPointReceiptWith(r => new Cart(r).CalculateRentalPoints());
+    textFooterRentalPointReceiptWith(c => c.CalculateRentalPoints());
 
 const textFooterReceipt: (rentals: Rental[]) => string =
     textFooterReceiptWith(rentals => new Cart(rentals).CalculateTotalPrice());
@@ -43,7 +43,7 @@ export class TextReceipt extends GenericReceipt {
         return textHeader(user);
     }
 
-    MakeRentalPoint(rentals: Rental[]): string {
-        return textFooterRentalPointReceipt(rentals);
+    MakeRentalPoint(cart: Cart): string {
+        return textFooterRentalPointReceipt(cart);
     }
 }

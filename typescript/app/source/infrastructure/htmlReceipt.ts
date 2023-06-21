@@ -42,7 +42,7 @@ export class HtmlMovieReceipt extends GenericReceipt {
             `<h1>Rental Record for ${user}</h1>\n`
     }
 
-    MakeRentalPoint(rentals: Rental[]): string {
-        return HtmlMovieReceipt.HtmlFooterRentalPointReceiptWith(new Cart(rentals).CalculateRentalPoints());
+    MakeRentalPoint(cart: Cart): string {
+        return HtmlMovieReceipt.HtmlFooterRentalPointReceiptWith(cart.CalculateRentalPoints());
     }
 }
